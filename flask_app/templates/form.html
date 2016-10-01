@@ -8,10 +8,13 @@
   <body>
     <h1> {{ title }} </h1>
     <p> Gee whiz, I sure hope this form works. </p>
-    <form method="POST" action="/authenticate/">
+    {{ status }} 
+    <form method="POST" action="/login/">
       Username: <input type="text" name="username" value="Foo"> <br>
       Password: <input type="password" name="password" value="bar"> <br>
-      <input type="submit">
+      <p> Usernames must be between 2-32 characters, and passwords must be between 4-64 characters. Don't try to use weird symbols in your username. </p>
+      <input type="submit" name="action" value="Login">
+      <input type="submit" name="action" value="Register">
     </form>
   </body>
 
