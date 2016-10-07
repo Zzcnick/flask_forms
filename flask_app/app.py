@@ -1,8 +1,10 @@
 # Flask App for Forms
 
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, session, url_for
 from utils import authenticate
 app = Flask(__name__)
+
+app.secret_key = "electric boogaloo"
 
 # Website Routes
 # ===============================================================
@@ -24,15 +26,17 @@ def auth():
         return login(request.form["username"],request.form["password"])
     if action == "Register":
         return register(request.form["username"],request.form["password"])
-    
+    if action == "Logout":
+        return "You logged out!"
+        
 # Formatting - Should this be in authenticate? 
 # ===============================================================
 def login(username,password):
     logstatus = authenticate.verify(username,password)
     if logstatus > 0:
-        return render_template("form.html",
-                               title="Login",
-                               status="Login Success!")
+        session["Username"] = username # Add Session
+        return render_template("welcome.html",
+                               title="Welcome")
     elif logstatus == -1:
         return render_template("form.html",
                                title="Login",

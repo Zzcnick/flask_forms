@@ -1,0 +1,46 @@
+body {
+  font-family: "Roboto", "Open Sans", "Lato", "Arial";
+  font-size: 16px;
+}
+#header {
+  font-size: 72px;
+  text-align: center;
+}
+#header2 {
+  font-size: 24px;
+  text-align: center;
+}
+#navbar {
+  font-size: 18px;
+  text-align: center;
+}
+#big {
+  font-size: 24px;
+  font-weight: bold;
+}
+#text {
+  margin-left: 20px;
+}
+input.invis {
+  font-size: 18px;
+  text-align: center;
+  border: 0;
+  background-color: #ffffff;
+}
+input.vis {
+  font-size: 14px;
+  text-align: left;
+  border: 1;
+  background-color: #eeeeee;
+  border-color: #dddddd;
+}
+hr {
+  margin-left: -20px;
+  margin-right: -20px;
+}
+a:link {
+  color: #000000;
+}
+a:visited {
+  color: #000000;
+}
