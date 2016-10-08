@@ -10,13 +10,13 @@ app.secret_key = "electric boogaloo"
 # ===============================================================
 @app.route("/", methods=["GET"])
 def index():
-    print request.form, "\n===================================\n" # Debugging
+    print request.form, "\n", session, "\n===================================\n" # Debugging
     return render_template("form.html",
                            title="Login")
 
 @app.route("/login/", methods=["POST", "GET"]) 
 def auth():
-    print request.form, "\n===================================\n" # Debugging
+    print request.form, "\n", session, "\n===================================\n" # Debugging
     try:
         action = request.form["action"]
     except:
@@ -27,20 +27,20 @@ def auth():
     if action == "Register":
         return register(request.form["username"],request.form["password"])
     if action == "Logout":
-        return "You logged out!"
+        return logout() # To Be Changed, Probably?
         
-# Formatting - Should this be in authenticate? 
+# Formatting
 # ===============================================================
 def login(username,password):
     logstatus = authenticate.verify(username,password)
     if logstatus > 0:
-        session["Username"] = username # Add Session
+        session["user"] = username # Add Session
         return render_template("welcome.html",
                                title="Welcome")
     elif logstatus == -1:
         return render_template("form.html",
                                title="Login",
-                               status="Login Failed: Unknown Error!")
+                               status="Login Failed: Invalid password.")
     elif logstatus == -2:
         return render_template("form.html",
                                title="Login",
@@ -77,8 +77,17 @@ def register(username,password):
                                title="Login",
                                status="Registration Failed: Surely you can choose a shorter name to identify yourself.")
 
+def logout(username = None):
+    if username is None:
+        session.pop("user")
+        return render_template("form.html",
+                               title="Login",
+                               status="You have been logged out!")
+    else:
+        return "Something's not right." # To Be Changed
+
 # Prevents following code from running unless it is standalone.
 # ===============================================================
-if (__name__ == "__main__"):
+if __name__ == "__main__":
     app.debug = True
     app.run()

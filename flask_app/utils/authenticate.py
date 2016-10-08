@@ -34,6 +34,14 @@ def write_data(username, password):
     u.close()
     p.close()
 
+def clear_data(): # For Database Initialization Use Only
+    u = open("../data/username.csv", "w")
+    p = open("../data/password.csv", "w")
+    u.write("")
+    p.write("")
+    u.close()
+    p.close()
+
 # Encryption
 # ===============================================================
 def encrypt(password):
@@ -81,3 +89,9 @@ def register(username,password):
     # Success
     write_data(username,password)
     return 1
+
+# Database Clearing
+# ===============================================================
+if __name__ == "__main__":
+    print "Clearing database..."
+    clear_data()
