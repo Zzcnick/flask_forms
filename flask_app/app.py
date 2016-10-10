@@ -10,14 +10,14 @@ app.secret_key = "electric boogaloo"
 # ===============================================================
 @app.route("/", methods=["GET"])
 def index():
-    print request.form, "\n", session, "\n===================================\n" # Debugging
-    return render_template("form.html",
-                           title="Login")
+    return redirect(url_for("auth"))
 
 @app.route("/login/", methods=["POST", "GET"]) 
 def auth():
     print request.form, "\n", session, "\n===================================\n" # Debugging
     try:
+        if "user" in session:
+            return redirect(url_for("welcome"))
         action = request.form["action"]
     except:
         return render_template("form.html",
@@ -26,8 +26,16 @@ def auth():
         return login(request.form["username"],request.form["password"])
     if action == "Register":
         return register(request.form["username"],request.form["password"])
-    if action == "Logout":
-        return logout() # To Be Changed, Probably?
+
+@app.route("/logout/", methods=["POST"])
+def quit():
+    return logout()
+
+@app.route("/welcome/", methods=["POST", "GET"])
+def welcome():
+    print request.form, "\n", session, "\n===================================\n" # Debugging
+    return render_template("welcome.html",
+                           title="Welcome")
         
 # Formatting
 # ===============================================================
